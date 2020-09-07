@@ -30,7 +30,7 @@ if empty(glob('~/.config/nvim/_machine_specific.vim'))
 	let has_machine_specific_file = 0
 	silent! exec "!cp ~/.config/nvim/default_configs/_machine_specific_default.vim ~/.config/nvim/_machine_specific.vim"
 endif
-source $XDG_CONFIG_HOME/nvim/_machine_specific.vim
+source ~/.config/nvim/_machine_specific.vim
 
 
 " ====================
@@ -94,6 +94,8 @@ endif
 set colorcolumn=100
 set updatetime=100
 set virtualedit=block
+inoremap kj <ESC>
+vnoremap v <ESC>
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -138,11 +140,11 @@ noremap S :w<CR>
 noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 
 " Undo operations
-noremap l u
+"noremap l u
 
 " Insert Key
-noremap k i
-noremap K I
+"noremap k i
+"noremap K I
 
 " make Y to copy till the end of the line
 nnoremap Y y$
@@ -182,35 +184,36 @@ noremap <c-g> :tabe<CR>:-tabmove<CR>:term lazygit<CR>
 " < n   i >
 "     e
 "     v
-noremap <silent> u k
-noremap <silent> n h
-noremap <silent> e j
-noremap <silent> i l
-noremap <silent> gu gk
-noremap <silent> ge gj
+"noremap <silent> u k
+"noremap <silent> n h
+"noremap <silent> e j
+"noremap <silent> i l
+"noremap <silent> gu gk
+"noremap <silent> ge gj
 
 " U/E keys for 5 times u/e (faster navigation)
-noremap <silent> U 5k
-noremap <silent> E 5j
+" TODO:  <28-08-20, David Chen> "
+noremap <silent> K 5k
+noremap <silent> J 5j
 
 " N key: go to the start of the line
-noremap <silent> N 0
+noremap <silent> H 0
 " I key: go to the end of the line
-noremap <silent> I $
+noremap <silent> L $
 
 " Faster in-line navigation
 noremap W 5w
 noremap B 5b
 
 " set h (same as n, cursor left) to 'end of word'
-noremap h e
+" noremap h e
 
 " Ctrl + U or E will move up/down the view port without moving the cursor
 noremap <C-U> 5<C-y>
 noremap <C-E> 5<C-e>
 
 
-source $XDG_CONFIG_HOME/nvim/cursor.vim
+source ~/.config/nvim/cursor.vim
 
 " ===
 " === Insert Mode Cursor Movement
@@ -234,8 +237,8 @@ cnoremap <M-w> <S-Right>
 " ===
 " === Searching
 " ===
-noremap - N
-noremap = n
+"noremap - N
+"noremap = n
 
 
 " ===
@@ -243,19 +246,19 @@ noremap = n
 " ===
 " Use <space> + new arrow keys for moving the cursor around windows
 noremap <LEADER>w <C-w>w
-noremap <LEADER>u <C-w>k
-noremap <LEADER>e <C-w>j
-noremap <LEADER>n <C-w>h
-noremap <LEADER>i <C-w>l
+noremap <LEADER>k <C-w>k
+noremap <LEADER>j <C-w>j
+noremap <LEADER>h <C-w>h
+noremap <LEADER>l <C-w>l
 
 " Disable the default s key
 noremap s <nop>
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
+noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap sj :set splitbelow<CR>:split<CR>
+noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
 
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
@@ -264,9 +267,9 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 " Place the two screens up and down
-noremap sh <C-w>t<C-w>K
+noremap sth <C-w>t<C-w>K
 " Place the two screens side by side
-noremap sv <C-w>t<C-w>H
+noremap stv <C-w>t<C-w>H
 
 " Rotate screens
 noremap srh <C-w>b<C-w>K
@@ -282,18 +285,18 @@ noremap <LEADER>q <C-w>j:q<CR>
 " Create a new tab with tu
 noremap tu :tabe<CR>
 " Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
+noremap th :-tabnext<CR>
+noremap tl :+tabnext<CR>
 " Move the tabs with tmn and tmi
-noremap tmn :-tabmove<CR>
-noremap tmi :+tabmove<CR>
+noremap tmh :-tabmove<CR>
+noremap tml :+tabmove<CR>
 
 
 " ===
 " === Markdown Settings
 " ===
 " Snippets
-source $XDG_CONFIG_HOME/nvim/md-snippets.vim
+source ~/.config/nvim/md-snippets.vim
 " auto spell
 autocmd BufRead,BufNewFile *.md setlocal spell
 
@@ -311,7 +314,7 @@ inoremap <C-u> <ESC>lx$p
 noremap <LEADER>/ :set splitbelow<CR>:split<CR>:res +10<CR>:term<CR>
 
 " Press space twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+" noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " Spelling Check with <space>sc
 noremap <LEADER>sc :set spell!<CR>
@@ -347,7 +350,7 @@ func! CompileRunGcc()
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
-		exec "!g++ -std=c++11 % -Wall -o %<"
+		exec "!g++ -std=c++11 -g % -Wall -o %<"
 		:sp
 		:res -15
 		:term ./%<
@@ -363,7 +366,9 @@ func! CompileRunGcc()
 	elseif &filetype == 'html'
 		silent! exec "!".g:mkdp_browser." % &"
 	elseif &filetype == 'markdown'
-		exec "InstantMarkdownPreview"
+" the vim-instant_markdown_preview plugin can't Synchronised scroll
+		" exec "InstantMarkdownPreview"
+		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
 		silent! exec "VimtexStop"
 		silent! exec "VimtexCompile"
@@ -400,10 +405,11 @@ Plug 'theniceboy/vim-deus'
 "Plug 'arzg/vim-colors-xcode'
 
 " Status line
-Plug 'theniceboy/eleline.vim'
+" Plug 'theniceboy/eleline.vim'
+Plug 'liuchengxu/eleline.vim'
 
 " General Highlighter
-Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'RRethy/vim-illuminate'
 
 " File navigation
@@ -419,7 +425,7 @@ Plug 'pechorin/any-jump.vim'
 Plug 'liuchengxu/vista.vim'
 
 " Debugger
-" Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
 
 " Auto Complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -482,7 +488,8 @@ Plug 'keith/swift.vim'
 Plug 'arzg/vim-swift'
 
 " Markdown
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Plug 'suan/vim-instant-markdown', {'for': 'markdown'} " can not Synchronised scroll
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
@@ -590,7 +597,7 @@ hi NonText ctermfg=gray guifg=grey10
 " ===
 " === eleline.vim
 " ===
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1 
 
 
 " ==
@@ -608,7 +615,7 @@ let g:gitgutter_sign_removed_first_line = '▔'
 let g:gitgutter_sign_modified_removed = '▒'
 " autocmd BufWritePost * GitGutter
 nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap H :GitGutterPreviewHunk<CR>
+" nnoremap H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
@@ -662,7 +669,7 @@ function! Show_documentation()
 		call CocAction('doHover')
 	endif
 endfunction
-nnoremap <LEADER>h :call Show_documentation()<CR>
+nnoremap <LEADER>sh :call Show_documentation()<CR>
 
 nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
 nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
@@ -705,19 +712,46 @@ vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-e>'
 let g:coc_snippet_prev = '<c-n>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
-let g:snips_author = 'David Chen'
+let g:snips_author = 'Jarvis Tao'
 
 
 " ===
 " === vim-instant-markdown
 " ===
-let g:instant_markdown_slow = 0
-let g:instant_markdown_autostart = 0
-" let g:instant_markdown_open_to_the_world = 1
-" let g:instant_markdown_allow_unsafe_content = 1
-" let g:instant_markdown_allow_external_content = 0
-" let g:instant_markdown_mathjax = 1
-let g:instant_markdown_autoscroll = 1
+" let g:instant_markdown_slow = 0
+" let g:instant_markdown_autostart = 1 
+" " let g:instant_markdown_open_to_the_world = 1
+" " let g:instant_markdown_allow_unsafe_content = 1
+" " let g:instant_markdown_allow_external_content = 0
+" " let g:instant_markdown_mathjax = 1
+" let g:instant_markdown_autoscroll = 1
+" let g:instant_markdown_browser = "chromium-browser --new-window"
+"
+" ===
+" === MarkdownPreview
+" ===
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_browser = 'chromium-browser'
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+let g:mkdp_page_title = '「${name}」'
 
 
 " ===
@@ -731,9 +765,9 @@ let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 " ===
 " === FZF
 " ===
-set rtp+=/usr/local/opt/fzf
-set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
-set rtp+=/home/david/.linuxbrew/opt/fzf
+" set rtp+=/usr/local/opt/fzf
+" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+set rtp+=/home/jarvis/.fzf
 " noremap <silent> <C-p> :Files<CR>
 noremap <silent> <C-p> :Leaderf file<CR>
 noremap <silent> <C-f> :Rg<CR>
@@ -818,7 +852,7 @@ let g:ctrlp_cmd = 'CtrlP'
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
+noremap <leader> L :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -826,10 +860,10 @@ let g:undotree_WindowLayout = 2
 let g:undotree_DiffpanelHeight = 8
 let g:undotree_SplitWidth = 24
 function g:Undotree_CustomMap()
-	nmap <buffer> u <plug>UndotreeNextState
-	nmap <buffer> e <plug>UndotreePreviousState
-	nmap <buffer> U 5<plug>UndotreeNextState
-	nmap <buffer> E 5<plug>UndotreePreviousState
+	nmap <buffer> k <plug>UndotreeNextState
+	nmap <buffer> j <plug>UndotreePreviousState
+	nmap <buffer> K 5<plug>UndotreeNextState
+	nmap <buffer> J 5<plug>UndotreePreviousState
 endfunc
 
 
@@ -854,16 +888,16 @@ endfunc
 "let g:VM_default_mappings = 0
 let g:VM_leader                     = {'default': ',', 'visual': ',', 'buffer': ','}
 let g:VM_maps                       = {}
-let g:VM_custom_motions             = {'n': 'h', 'i': 'l', 'u': 'k', 'e': 'j', 'N': '0', 'I': '$', 'h': 'e'}
-let g:VM_maps['i']                  = 'k'
-let g:VM_maps['I']                  = 'K'
+let g:VM_custom_motions             = {'H': '0', 'L': '$', 'h': 'e'}
+" let g:VM_maps['i']                  = 'k'
+" let g:VM_maps['I']                  = 'K'
 let g:VM_maps['Find Under']         = '<C-k>'
 let g:VM_maps['Find Subword Under'] = '<C-k>'
 let g:VM_maps['Find Next']          = ''
 let g:VM_maps['Find Prev']          = ''
 let g:VM_maps['Remove Region']      = 'q'
 let g:VM_maps['Skip Region']        = '<c-n>'
-let g:VM_maps["Undo"]               = 'l'
+let g:VM_maps["Undo"]               = 'u'
 let g:VM_maps["Redo"]               = '<C-r>'
 
 
@@ -1067,7 +1101,7 @@ endfunction
 " ===
 " === vim-easymotion
 " ===
-let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_do_mapping = 1 
 let g:EasyMotion_do_shade = 0
 let g:EasyMotion_smartcase = 1
 " map ' <Plug>(easymotion-overwin-f2)
@@ -1075,7 +1109,7 @@ let g:EasyMotion_smartcase = 1
 "map E <Plug>(easymotion-j)
 "map U <Plug>(easymotion-k)
 "nmap f <Plug>(easymotion-overwin-f)
-"map \; <Plug>(easymotion-prefix)
+map \; <Plug>(easymotion-prefix)
 "nmap ' <Plug>(easymotion-overwin-f2)
 "map 'l <Plug>(easymotion-bd-jk)
 "nmap 'l <Plug>(easymotion-overwin-line)
@@ -1142,7 +1176,7 @@ let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.tabline_modes = ['tabs', 'buffers']
 let g:xtabline_settings.enable_persistance = 0
 let g:xtabline_settings.last_open_first = 1
-noremap to :XTabCycleMode<CR>
+noremap to :XTabMode<CR>
 noremap \p :echo expand('%:p')<CR>
 
 
@@ -1303,7 +1337,7 @@ noremap <c-y> :NR<CR>
 " ===
 " === any-jump
 " ===
-nnoremap j :AnyJump<CR>
+"nnoremap j :AnyJump<CR>
 let g:any_jump_window_width_ratio  = 0.8
 let g:any_jump_window_height_ratio = 0.9
 

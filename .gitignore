@@ -9,3 +9,5 @@ tmp/
 _machine_specific.vim
 .vim-bookmarks
 
+
+npm-debug.log
