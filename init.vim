@@ -249,7 +249,7 @@ noremap <LEADER>w <C-w>w
 noremap <LEADER>k <C-w>k
 noremap <LEADER>j <C-w>j
 noremap <LEADER>h <C-w>h
-noremap <LEADER>l <C-w>l
+" noremap <LEADER>l <C-w>l
 
 " Disable the default s key
 noremap s <nop>
@@ -362,7 +362,7 @@ func! CompileRunGcc()
 	elseif &filetype == 'python'
 		set splitbelow
 		:sp
-		:term python3 %
+		:term /home/jarvis/anaconda3/envs/myResearch/bin/python %
 	elseif &filetype == 'html'
 		silent! exec "!".g:mkdp_browser." % &"
 	elseif &filetype == 'markdown'
@@ -436,7 +436,7 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'theniceboy/vim-snippets'
 
 " Undo Tree
-Plug 'mbbill/undotree'
+" Plug 'mbbill/undotree'
 
 " Git
 Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
@@ -449,7 +449,7 @@ Plug 'cohama/agit.vim'
 Plug 'Chiel92/vim-autoformat'
 
 " Tex
-" Plug 'lervag/vimtex'
+Plug 'lervag/vimtex'
 
 " CSharp
 Plug 'OmniSharp/omnisharp-vim'
@@ -623,6 +623,7 @@ nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 " ===
 " === coc.nvim
 " ===
+" \ 'coc-pyright',
 let g:coc_global_extensions = [
 	\ 'coc-actions',
 	\ 'coc-css',
@@ -634,9 +635,8 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-lists',
 	\ 'coc-prettier',
-	\ 'coc-pyright',
+  \ 'coc-snippets',
 	\ 'coc-python',
-	\ 'coc-snippets',
 	\ 'coc-sourcekit',
 	\ 'coc-stylelint',
 	\ 'coc-syntax',
@@ -708,11 +708,12 @@ nnoremap <leader>tu :CocCommand todolist.download<CR>:CocCommand todolist.upload
 noremap <silent> <leader>ts :CocList tasks<CR>
 " coc-snippets
 imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-e> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-e>'
-let g:coc_snippet_prev = '<c-n>'
-imap <C-e> <Plug>(coc-snippets-expand-jump)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 let g:snips_author = 'Jarvis Tao'
+
 
 
 " ===
@@ -731,7 +732,7 @@ let g:snips_author = 'Jarvis Tao'
 " === MarkdownPreview
 " ===
 let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
+let g:mkdp_auto_close = 0
 let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
@@ -770,7 +771,7 @@ let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 set rtp+=/home/jarvis/.fzf
 " noremap <silent> <C-p> :Files<CR>
 noremap <silent> <C-p> :Leaderf file<CR>
-noremap <silent> <C-f> :Rg<CR>
+noremap <silent> <C-f> :Ag<CR>
 noremap <silent> <C-h> :History<CR>
 "noremap <C-t> :BTags<CR>
 noremap <silent> <C-l> :Lines<CR>
@@ -852,20 +853,20 @@ let g:ctrlp_cmd = 'CtrlP'
 " ===
 " === Undotree
 " ===
-noremap <leader> L :UndotreeToggle<CR>
-let g:undotree_DiffAutoOpen = 1
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-let g:undotree_WindowLayout = 2
-let g:undotree_DiffpanelHeight = 8
-let g:undotree_SplitWidth = 24
-function g:Undotree_CustomMap()
-	nmap <buffer> k <plug>UndotreeNextState
-	nmap <buffer> j <plug>UndotreePreviousState
-	nmap <buffer> K 5<plug>UndotreeNextState
-	nmap <buffer> J 5<plug>UndotreePreviousState
-endfunc
-
+" noremap <leader> L :UndotreeToggle<CR>
+" let g:undotree_DiffAutoOpen = 1
+" let g:undotree_SetFocusWhenToggle = 1
+" let g:undotree_ShortIndicators = 1
+" let g:undotree_WindowLayout = 2
+" let g:undotree_DiffpanelHeight = 8
+" let g:undotree_SplitWidth = 24
+" function g:Undotree_CustomMap()
+" 	nmap <buffer> k <plug>UndotreeNextState
+" 	nmap <buffer> j <plug>UndotreePreviousState
+" 	nmap <buffer> K 5<plug>UndotreeNextState
+" 	nmap <buffer> J 5<plug>UndotreePreviousState
+" endfunc
+"
 
 " ==
 " == vim-multiple-cursor
@@ -962,10 +963,11 @@ noremap <LEADER>gi :FzfGitignore<CR>
 " === Ultisnips
 " ===
 " let g:tex_flavor = "latex"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 " inoremap <c-n> <nop>
-" let g:UltiSnipsExpandTrigger="<c-e>"
-" let g:UltiSnipsJumpForwardTrigger="<c-e>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 " let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/Ultisnips/', $HOME.'/.config/nvim/plugged/vim-snippets/UltiSnips/']
 " silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
 " " Solve extreme insert-mode lag on macOS (by disabling autotrigger)
@@ -980,13 +982,16 @@ noremap <LEADER>gi :FzfGitignore<CR>
 " === vimtex
 " ===
 "let g:vimtex_view_method = ''
-let g:vimtex_view_general_viewer = 'llpp'
-let g:vimtex_mappings_enabled = 0
+let g:tex_flavor = 'latex'
+" let g:vimtex_view_general_viewer = 'llpp'
+let g:vimtex_view_general_viewer = 'evince'
+" let g:vimtex_mappings_enabled = 0
 let g:vimtex_text_obj_enabled = 0
 let g:vimtex_motion_enabled = 0
 let maplocalleader=' '
-
-
+" let g:vimtex_quickfix_mode = 0
+set conceallevel=1
+let g:tex_conceal='abdmgs'
 " ===
 " === vim-calendar
 " ===
@@ -1229,6 +1234,8 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
 sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=☞ texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
+nnoremap <leader>gdr :VimspectorReset<CR>
+nnoremap <leader>gdw :VimspectorWatch 
 
 
 " ===
