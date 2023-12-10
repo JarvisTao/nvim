@@ -1,148 +1,110 @@
-## <center>The Ultimate NeoVim Config for QWERTY ~~[Colemak](https://colemak.com/)~~ Users</center>
+## <center>The Ultimate NeoVim Config for [Colemak](https://colemak.com/) Users</center>
+<center><a href="https://instaboard.page/gh-sponsor"><img src="https://user-images.githubusercontent.com/8187501/232345609-366fd597-8a32-4667-9e80-2487ebe6f7f6.png" alt="Sponsored by Instaboard"></img></a></center>
+<br/>
 
 <center><img src="https://raw.githubusercontent.com/theniceboy/nvim/master/demo.png"></center>
 
 [中文版](./README_cn.md)
 
-This configuration is forked from [[theniceboy/nvim]](https://github.com/theniceboy/nvim.git) and I change the keybindings suitable for **Normal QWERT** keyboard from **Colmak**.
-
-**Changes**: 
-- [ ] Keybindings for QWERTY keyboard
-	```
-	    u                  k
-	< n   i >  --->>>  < h   l >
-	    e                  j
-	```
-- [ ] Markdown review plugin: [`suan/vim-instant-markdown`](http://github.com/suan/vim-instant-markdown)  -> [`iamcco/markdown-preview.nvim`](http://github.com/iamcco/markdown-preview.nvim)
-
-	The `vim-install-markdown` plugin can't work properly (NO Synchronised scrolling )
-
-- [ ] To be continued
-
----
-Here is the configuration modified from origin version.
-
-
 Please **DO NOT** just copy this configuration folder without really looking at it! Please, at least, read this README file!
 
 <!-- TOC GFM -->
 
+* [Requirements](#requirements)
 * [After Installation, You Need To](#after-installation-you-need-to)
 * [After Installation, You Might Want To](#after-installation-you-might-want-to)
-	- [First of all](#first-of-all)
-	- [For C, C++ Debugger (via `vimspector`)](#for-c-c-debugger-via-vimspector)
-	- [For Python Debugger (via `vimspector`)](#for-python-debugger-via-vimspector)
-	- [`vimspector` Predefined Variables](#vimspector-predefined-variables)
-	- [Config `Python` path](#config-python-path)
-	- [For Taglist:](#for-taglist)
-	- [For FZF](#for-fzf)
-	- [And also...](#and-also)
+  - [First of all](#first-of-all)
+  - [For Python Debugger (via `vimspector`)](#for-python-debugger-via-vimspector)
+  - [Config `Python` path](#config-python-path)
+  - [For Taglist:](#for-taglist)
+  - [For FZF](#for-fzf)
+  - [And also...](#and-also)
 * [Keyboard Shortcuts](#keyboard-shortcuts)
-	- [1 Basic Editor Features](#1-basic-editor-features)
-		+ [1.1 The Most Basics](#11-the-most-basics)
-		+ [1.2 Remapped Cursor Movement](#12-remapped-cursor-movement)
-		+ [1.3 Remapped Insert Mode Keys](#13-remapped-insert-mode-keys)
-		+ [1.4 Remapped Text Manipulating Commands in Normal Mode](#14-remapped-text-manipulating-commands-in-normal-mode)
-		+ [1.5 Other Useful Normal Mode Remappings](#15-other-useful-normal-mode-remappings)
-		+ [1.6 Remapped Commands in Visual Mode](#16-remapped-commands-in-visual-mode)
-	- [2 Window Management](#2-window-management)
-		+ [2.1 Creating Window Through Split Screen](#21-creating-window-through-split-screen)
-		+ [2.2 Moving the Cursor Between Different Windows](#22-moving-the-cursor-between-different-windows)
-		+ [2.3 Resizing Different Windows](#23-resizing-different-windows)
-		+ [2.4 Closing Windows](#24-closing-windows)
-	- [3 Tab Management](#3-tab-management)
-	- [4 Terminal Keyboard Shortcuts](#4-terminal-keyboard-shortcuts)
+  - [1 Basic Editor Features](#1-basic-editor-features)
+    + [1.1 The Most Basics](#11-the-most-basics)
+    + [1.2 Remapped Cursor Movement](#12-remapped-cursor-movement)
+    + [1.3 Remapped Insert Mode Keys](#13-remapped-insert-mode-keys)
+    + [1.4 Remapped Text Manipulating Commands in Normal Mode](#14-remapped-text-manipulating-commands-in-normal-mode)
+    + [1.5 Other Useful Normal Mode Remappings](#15-other-useful-normal-mode-remappings)
+    + [1.6 Remapped Commands in Visual Mode](#16-remapped-commands-in-visual-mode)
+  - [2 Window Management](#2-window-management)
+    + [2.1 Creating Window Through Split Screen](#21-creating-window-through-split-screen)
+    + [2.2 Moving the Cursor Between Different Windows](#22-moving-the-cursor-between-different-windows)
+    + [2.3 Resizing Different Windows](#23-resizing-different-windows)
+    + [2.4 Closing Windows](#24-closing-windows)
+  - [3 Tab Management](#3-tab-management)
+  - [4 Terminal Keyboard Shortcuts](#4-terminal-keyboard-shortcuts)
 * [Plugins Keybindings (Screenshots/GIF provided!)](#plugins-keybindings-screenshotsgif-provided)
-	- [AutoCompletion](#autocompletion)
-		+ [COC (AutoCompletion)](#coc-autocompletion)
-		+ [Ultisnips](#ultisnips)
-	- [Debugger](#debugger)
-		+ [vimspector (debugger-plugin)](#vimspector-debugger-plugin)
-	- [File Navigation](#file-navigation)
-		+ [coc-explorer (file browser)](#coc-explorer-file-browser)
-		+ [rnvimr - file browser](#rnvimr---file-browser)
-		+ [FZF - the fuzzy file finder](#fzf---the-fuzzy-file-finder)
-		+ [xtabline (the fancy tab line)](#xtabline-the-fancy-tab-line)
-	- [Text Editing Plugins](#text-editing-plugins)
-		+ [vim-table-mode](#vim-table-mode)
-		+ [Undotree](#undotree)
-		+ [vim-multiple-cursors](#vim-multiple-cursors)
-		+ [vim-surround](#vim-surround)
-		+ [vim-subversive](#vim-subversive)
-		+ [vim-easy-align](#vim-easy-align)
-		+ [AutoFormat](#autoformat)
-		+ [vim-markdown-toc (generate table of contents for markdown files)](#vim-markdown-toc-generate-table-of-contents-for-markdown-files)
-	- [Navigation Within Buffer](#navigation-within-buffer)
-		+ [vim-easy-motion](#vim-easy-motion)
-		+ [Vista.vim](#vistavim)
-		+ [vim-signiture - Bookmarks](#vim-signiture---bookmarks)
-	- [Find and Replace](#find-and-replace)
-		+ [Far.vim - find and replace](#farvim---find-and-replace)
-	- [Git Related](#git-related)
-		+ [vim-gitgutter](#vim-gitgutter)
-		+ [fzf-gitignore](#fzf-gitignore)
-	- [Others](#others)
-		+ [vim-calendar](#vim-calendar)
-		+ [Goyo - Work without distraction](#goyo---work-without-distraction)
-		+ [suda.vim](#sudavim)
-		+ [coc-translator](#coc-translator)
+  - [AutoCompletion](#autocompletion)
+    + [COC (AutoCompletion)](#coc-autocompletion)
+    + [coc-snippets](#coc-snippets)
+  - [File Navigation](#file-navigation)
+    + [coc-explorer (file browser)](#coc-explorer-file-browser)
+    + [rnvimr - file browser](#rnvimr---file-browser)
+    + [FZF - the fuzzy file finder](#fzf---the-fuzzy-file-finder)
+    + [xtabline (the fancy tab line)](#xtabline-the-fancy-tab-line)
+  - [Text Editing Plugins](#text-editing-plugins)
+    + [vim-table-mode](#vim-table-mode)
+    + [Undotree](#undotree)
+    + [vim-visual-multi](#vim-visual-multi)
+    + [vim-surround](#vim-surround)
+    + [vim-subversive](#vim-subversive)
+    + [vim-easy-align](#vim-easy-align)
+    + [AutoFormat](#autoformat)
+    + [vim-markdown-toc (generate table of contents for markdown files)](#vim-markdown-toc-generate-table-of-contents-for-markdown-files)
+  - [Navigation Within Buffer](#navigation-within-buffer)
+    + [Vista.vim](#vistavim)
+  - [Find and Replace](#find-and-replace)
+    + [Far.vim - find and replace](#farvim---find-and-replace)
+  - [Git Related](#git-related)
+    + [vim-gitgutter](#vim-gitgutter)
+    + [fzf-gitignore](#fzf-gitignore)
+  - [Others](#others)
+    + [vim-calendar](#vim-calendar)
+    + [Goyo - Work without distraction](#goyo---work-without-distraction)
+    + [suda.vim](#sudavim)
+    + [coc-translator](#coc-translator)
 * [Custom Snippets](#custom-snippets)
-	- [Markdown](#markdown)
+  - [Markdown](#markdown)
 * [Some Weird Stuff](#some-weird-stuff)
-	- [Press `tx` and enter your text](#press-tx-and-enter-your-text)
-	- [Customized Vertical Cursor Movement](#customized-vertical-cursor-movement)
+  - [Press `tx` and enter your text](#press-tx-and-enter-your-text)
+  - [Customized Vertical Cursor Movement](#customized-vertical-cursor-movement)
 
 <!-- /TOC -->
 
+## Requirements
+- This nvim configuration **REQUIRES** NeoVim 0.6.0+
 ## After Installation, You Need To
-- [ ] Install `pynvim` (pip)
-- [ ] Install `nodejs`, and do `npm install -g neovim`
-- [ ] Install nerd-fonts (actually it's optional but it looks real good)
+- Install `pip3`, and do `pip3 install --user pynvim`
+- Install `node`, and do `npm install -g neovim`
+- Install nerd-fonts (actually it's optional but it looks real good)
 
 ## After Installation, You Might Want To
 ### First of all
-- [ ] Do `:checkhealth`
-
-### For C, C++ Debugger (via `vimspector`)
-- [ ] Install `vscode-cpptools` using `install_gadget.py`
+- Do `:checkhealth`
 
 ### For Python Debugger (via `vimspector`)
-- [ ] Install `debugpy` (`pip`)
+- Install `debugpy` (`pip`)
 
-### `vimspector` Predefined Variables
-- `${dollar}` - has the value $, can be used to enter a literal dollar
-- `$$` - a literal dollar
-- ${workspaceRoot} - the path of the folder where .vimspector.json was found
-- ${workspaceFolder} - the path of the folder where .vimspector.json was found
-- ${gadgetDir} - path to the OS-specific gadget dir (<vimspector home>/gadgets/<OS>)
-- ${file} - the current opened file
-- ${relativeFile} - the current opened file relative to workspaceRoot
-- ${fileBasename} - the current opened file’s basename
-- ${fileBasenameNoExtension} - the current opened file’s basename with no file extension
-- ${fileDirname} - the current opened file’s dirname
-- ${fileExtname} - the current opened file’s extension
-- ${cwd} - the current working directory of the active window on launch
-- ${unusedLocalPort} - an unused local TCP port
 ### Config `Python` path
-- [ ] Well, make sure you have python
-- [ ] See `_machine_specific.vim`
+- Well, make sure you have python
+- See `_machine_specific.vim`
 
 ### For Taglist:
-- [ ] Install `ctags` for function/class/variable list
-- [ ] Install `vista.nvim` plugin
+- Install `ctags` for function/class/variable list
 
 ### For FZF
-- [ ] Install `fzf`
-- [ ] Install `ag` (`the_silver_searcher`)
+- Install `fzf`
+- Install `ag` (`the_silver_searcher`)
 
 ### And also...
-- [ ] Install `figlet` for inputing text ASCII art
-- [ ] Install `xclip` for system clipboard access (`Linux` and `xorg` only)
+- Install `figlet` for inputing text ASCII art
+- Install `xclip` for system clipboard access (`Linux` and `xorg` only)
 
 ## Keyboard Shortcuts
 ### 1 Basic Editor Features
 #### 1.1 The Most Basics
-~~**`k`** : switchs to **`INSERT`** : mode (same as key `i` in vanilla vim)~~ 
+**`k`** : switchs to **`INSERT`** : mode (same as key `i` in vanilla vim)
 
 **`Q`** : quits current vim window (same as command `:q` in vanilla vim)
 
@@ -150,22 +112,22 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 
 **_IMPORTANT_**
 
-  ~~Since the `i` key has been mapped to `k`, every command (combination) that involves `i` should use `k` instead (for example, `ciw` should be `ckw`).~~
+  Since the `i` key has been mapped to `k`, every command (combination) that involves `i` should use `k` instead (for example, `ciw` should be `ckw`).
 
 #### 1.2 Remapped Cursor Movement
 | Shortcut   | Action                                                    | Equivalent |
 |------------|-----------------------------------------------------------|------------|
-| `k`        | Cursor up a terminal line                                 | `k`        |
-| `j`        | Cursor down a terminal line                               | `j`        |
-| `h`        | Cursor left                                               | `h`        |
-| `l`        | Cursor right                                              | `l`        |
-| `K`        | Cursor up 5 terminal lines                                | `5k`       |
-| `J`        | Cursor down 5 terminal lines                              | `5j`       |
-| `H`        | Cursor to the start of the line                           | `0`        |
-| `L`        | Cursor to the end of the line                             | `$`        |
+| `u`        | Cursor up a terminal line                                 | `k`        |
+| `e`        | Cursor down a terminal line                               | `j`        |
+| `n`        | Cursor left                                               | `h`        |
+| `i`        | Cursor right                                              | `l`        |
+| `U`        | Cursor up 5 terminal lines                                | `5k`       |
+| `E`        | Cursor down 5 terminal lines                              | `5j`       |
+| `N`        | Cursor to the start of the line                           | `0`        |
+| `I`        | Cursor to the end of the line                             | `$`        |
 | `Ctrl` `u` | Move the view port up 5 lines without moving the cursor   | `Ctrl` `y` |
 | `Ctrl` `e` | Move the view port down 5 lines without moving the cursor | `Ctrl` `e` |
-| `e`        | Move to the end of this word                              | `e`        |
+| `h`        | Move to the end of this word                              | `e`        |
 | `W`        | Move cursor five words forward                            | `5w`       |
 | `B`        | Move cursor five words forward                            | `5b`       |
 
@@ -178,6 +140,7 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 #### 1.4 Remapped Text Manipulating Commands in Normal Mode
 | Shortcut        | Action                                |
 |-----------------|---------------------------------------|
+| `l`             | **undo**                              |
 | `<`             | Un-indent                             |
 | `>`             | Indent                                |
 | `SPACE` `SPACE` | Goto the next placeholder (`<++>`)    |
@@ -190,8 +153,8 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | `SPACE` `d` `w` | Find adjacent duplicated word                  |
 | `SPACE` `t` `t` | Convert every 4 Spaces to a tab                |
 | `SPACE` `o`     | Fold                                           |
-|~~`SPACE` `-`~~  | Previous quick-fix position                    |
-|~~`SPACE` `+`~~  | Next quick-fix position                        |
+| `SPACE` `-`     | Previous quick-fix position                    |
+| `SPACE` `+`     | Next quick-fix position                        |
 | `\` `p`         | Show the path of the current file              |
 | `SPACE` `/`     | Create a new terminal below the current window |
 
@@ -205,12 +168,12 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 #### 2.1 Creating Window Through Split Screen
 | Shortcut    | Action                                                                      |
 |-------------|-----------------------------------------------------------------------------|
-| `s` `k`     | Create a new horizontal split screen and place it above the current window  |
-| `s` `j`     | Create a new horizontal split screen and place it below the current window  |
-| `s` `h`     | Create a new vertical split screen and place it left to the current window  |
-| `s` `l`     | Create a new vertical split screen and place it right to the current window |
-| `s` `t` `v` | Set the two splits to be vertical                                           |
-| `s` `t` `h` | Set the two splits to be horizontal                                         |
+| `s` `u`     | Create a new horizontal split screen and place it above the current window  |
+| `s` `e`     | Create a new horizontal split screen and place it below the current window  |
+| `s` `n`     | Create a new vertical split screen and place it left to the current window  |
+| `s` `i`     | Create a new vertical split screen and place it right to the current window |
+| `s` `v`     | Set the two splits to be vertical                                           |
+| `s` `h`     | Set the two splits to be horizontal                                         |
 | `s` `r` `v` | Rotate splits and arrange splits vertically                                 |
 | `s` `r` `h` | Rotate splits and arrange splits horizontally                               |
 
@@ -218,9 +181,9 @@ Please **DO NOT** just copy this configuration folder without really looking at 
 | Shortcut      | Action                         |
 |---------------|--------------------------------|
 | `SPACE` + `w` | Move cursor to the next window |
-| `SPACE` + `h` | Move cursor one window left    |
-| `SPACE` + `l` | Move cursor one window right   |
-| `SPACE` + `k` | Move cursor one window up      |
+| `SPACE` + `n` | Move cursor one window left    |
+| `SPACE` + `i` | Move cursor one window right   |
+| `SPACE` + `u` | Move cursor one window up      |
 | `SPACE` + `e` | Move cursor one window down    |
 
 #### 2.3 Resizing Different Windows
@@ -260,7 +223,7 @@ Use the arrow keys to resize the current window.
 
 <img alt="Gif" src="https://user-images.githubusercontent.com/251450/55285193-400a9000-53b9-11e9-8cff-ffe4983c5947.gif" width="60%" />
 
-#### [Ultisnips](https://github.com/SirVer/ultisnips)
+#### [coc-snippets](https://github.com/neoclide/coc-snippets)
 | Shortcut   | Action                                           |
 |------------|--------------------------------------------------|
 | `Ctrl` `e` | Expand a snippet                                 |
@@ -268,22 +231,6 @@ Use the arrow keys to resize the current window.
 | `Ctrl` `e` | (in snippet) Next Cursor position in snippet     |
 
 ![GIF Demo](https://raw.github.com/SirVer/ultisnips/master/doc/demo.gif)
-
-### Debugger
-#### [vimspector (debugger-plugin)](https://github.com/puremourning/vimspector)
-| Key   | Function                                                  |
-|-------|-----------------------------------------------------------|
-| `F5`  | When debugging, continue. Otherwise start debugging.      |
-| `F3`  | Stop debugging.                                           |
-| `F4`  | Restart debugging with the same configuration.            |
-| `F6`  | Pause debugee.                                            |
-| `F9`  | Toggle line breakpoint on the current line.               |
-| `F8`  | Add a function breakpoint for the expression under cursor |
-| `F10` | Step Over                                                 |
-| `F11` | Step Into                                                 |
-| `F12` | Step out of current function scope                        |
-
-<img alt="Gif" src="https://puremourning.github.io/vimspector-web/img/vimspector-overview.png" width="60%" />
 
 ### File Navigation
 #### [coc-explorer (file browser)](https://github.com/weirongxu/coc-explorer)
@@ -347,14 +294,14 @@ See `:help table-mode.txt` for more.
 
 <img alt="Png" src="https://camo.githubusercontent.com/56430626a5444ea2f0249d71f9288775277c7f5d/68747470733a2f2f73697465732e676f6f676c652e636f6d2f736974652f6d6262696c6c2f756e646f747265655f6e65772e706e67" width="60%" />
 
-#### [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
-| Shortcut   | Action                                 |
-|------------|----------------------------------------|
-| `Ctrl`+`k` | **Select next key (multiple cursors)** |
-| `Alt`+`k`  | **Select all keys (multiple cursors)** |
-| `Ctrl`+`p` | Select previous key                    |
-| `Ctrl`+`s` | Skip key                               |
-| `Esc`      | Quit mutiple cursors                   |
+#### [vim-visual-multi](https://github.com/mg979/vim-visual-multi)
+| Shortcut   | Action                                           |
+|------------|--------------------------------------------------|
+| `Ctrl`+`k` | **Select next key (multiple cursors)**           |
+| `q`        | **Deselect the current keys (multiple cursors)** |
+| `-`        | Select the previous key                          |
+| `=`        | Select the next key                              |
+| `Esc`      | Quit mutiple cursors                             |
 
 <img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example1.gif" width="60%" />
 <img alt="Gif" src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example2.gif" width="60%" />
@@ -387,8 +334,6 @@ New operator: `s`:
 
 You can execute `s<motion>` to substitute the text object provided by the motion with the contents of the default register (or an explicit register if provided). For example, you could execute `skw` to replace the current word under the cursor with the current yank, or `skp` to replace the paragraph, etc.
 
-
-
 #### [vim-easy-align](https://github.com/junegunn/vim-easy-align)
 Press `ga` + **symbol** in normal or visual mode to align text based on **symbol**
 
@@ -403,34 +348,10 @@ In `markdown` files, type `:Gen` then tab, you'll see your options.
 <img alt="Gif" src="https://raw.githubusercontent.com/mzlogin/vim-markdown-toc/master/screenshots/english.gif" width="60%" />
 
 ### Navigation Within Buffer
-#### [vim-easy-motion](https://github.com/easymotion/vim-easymotion)
-Press `'` and a `character` jump to `character` (similar to Emacs' [AceJump](https://www.emacswiki.org/emacs/AceJump))
-
-<img alt="Gif" src="https://f.cloud.github.com/assets/3797062/2039359/a8e938d6-899f-11e3-8789-60025ea83656.gif" width="60%" />
-
 #### [Vista.vim](https://github.com/liuchengxu/vista.vim)
 Press `T` to toggle function and variable list
 
 <img alt="Gif" src="https://user-images.githubusercontent.com/8850248/56469894-14d40780-6472-11e9-802f-729ac53bd4d5.gif" width="60%" />
-
-#### [vim-signiture - Bookmarks](https://github.com/kshenoy/vim-signature)
-| Shortcut    | Action                          |
-|-------------|---------------------------------|
-| `m<letter>` | Add/remove mark at current line |
-| `m/`        | List all marks                  |
-| `mSPACE`    | Jump to the next mark in buffer |
-| `mt`        | Add/remove mark at current line |
-| `ma`        | Add annotation at current line  |
-| `ml`        | Show all bookmarks              |
-| `mi`        | Next bookmark                   |
-| `mn`        | Previous bookmark               |
-| `mC`        | Clear bookmarks                 |
-| `mX`        | Clear all bookmarks             |
-| `mu`        | Move bookmark up a line         |
-| `me`        | Move bookmark down a line       |
-| `SPC` `g`   | Move bookmark to line...        |
-
-<img alt="Gif" src="https://camo.githubusercontent.com/bc2bf1746e30c72d7ff5b79331231e8c388d068a/68747470733a2f2f7261772e6769746875622e636f6d2f4d617474657347726f656765722f76696d2d626f6f6b6d61726b732f6d61737465722f707265766965772e676966" width="60%" />
 
 ### Find and Replace
 #### [Far.vim - find and replace](https://github.com/brooth/far.vim)

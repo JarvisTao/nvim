@@ -3,11 +3,10 @@
 view/
 plugged/
 sessions/
-autoload/
+autoload/plug.vim.old
 tmp/
 .netrwhist
 _machine_specific.vim
 .vim-bookmarks
 
-
-npm-debug.log
+lua/config/machine_specific.lua
